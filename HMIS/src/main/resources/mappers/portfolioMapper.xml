@@ -5,6 +5,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.hmis.mapper.PortfolioMapper">
 
+	<!-- 포트 폴리오 등록 -->
+    <insert id="insert">
+      INSERT INTO      
+      	TBL_PORTFOLIO(user_No)
+      VALUES
+      	(#{userNo})
+    </insert>
 
 	<!-- 제목 검색 -->
 	<sql id="search">

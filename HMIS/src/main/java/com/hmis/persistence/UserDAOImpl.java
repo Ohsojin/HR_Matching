@@ -24,6 +24,7 @@ public class UserDAOImpl implements UserDAO {
 
    private static String namespace = "com.hmis.mapper.UserMapper";
    private static String namespaceMyPage = "com.hmis.mapper.MyPageMapper";
+   private static String namespacePortfolio = "com.hmis.mapper.PortfolioMapper";
 
    @Override
    public UserVO login(LoginDTO dto) throws Exception {
@@ -33,10 +34,10 @@ public class UserDAOImpl implements UserDAO {
 
    @Override
    // 1. 사용자(학생) 등록
+   // 2. 사용자(학생) 포트폴리오 등록
    public void insert(UserVO uVo) throws Exception {
-      // TODO Auto-generated method stub
-
       session.selectOne(namespace + ".insert", uVo);
+      session.selectOne(namespacePortfolio + ".insert", uVo);
    }
 
    @Override
