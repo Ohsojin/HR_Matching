@@ -212,6 +212,7 @@ body[data-layout=detached] .wrapper {
 			return false;
 		}
 
+		alert("등록되었습니다.");
 		return true;
 
 	}
