@@ -256,12 +256,6 @@ td, th {
 
 		});
 
-		var msg = "${msg}";
-
-		if (msg != "") {
-			alert(msg);
-		}
-
 		$(document).ready(
 				function() {
 
