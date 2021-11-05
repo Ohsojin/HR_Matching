@@ -167,7 +167,7 @@ ul {
 									</div>
 									
 									<div class="form-group mb-3">
-										<label for="inputEmail4" class="col-form-label">임금</label>
+										<label for="inputEmail4" class="col-form-label">구인구직 사이트 채용공고 주소</label>
 										<span class="text-danger">*</span>
 										<div class="input-group">
 											<input type="text" class="form-control" name="linkAddress" id="linkAddress" value="${postingVO.linkAddress}" onKeyUp="fnChkByte(this,'2000')">
