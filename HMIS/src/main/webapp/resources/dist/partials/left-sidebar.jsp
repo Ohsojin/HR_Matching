@@ -100,7 +100,7 @@
          </a></li>
 
 		 <!--- 취업 공고 관리  -->
-         <li class="side-nav-item"><a href="/admin/announcement/list"  class="side-nav-link"> 
+         <li class="side-nav-item"><a href="/admin/posting/list"  class="side-nav-link"> 
          <i class=" mdi mdi-format-float-left"></i> <span
                class="badge badge-success float-right"></span> <span> 취업 공고</span>
          </a></li>
