@@ -94,6 +94,16 @@ body[data-layout=detached] .wrapper {
 												type="text" class="form-control" name="userName" value="${userVO.userName }"
 												readonly="readonly"/>
 										</div>
+										
+										<div class="form-group mb-3">
+											<label for="userName">개인정보 동의 여부</label>
+												<c:if test="${piVO.assent == 1 }">
+													<input type="text" class="form-control" name="assent" value="동의함" readonly="readonly"/>
+												</c:if>
+												<c:if test="${piVO.assent != 1 }">
+													<input type="text" class="form-control" name="assent" value="동의하지 않음" readonly="readonly"/>
+												</c:if>
+										</div>
 
 										
 										<div style="text-align: right;">
