@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hmis.domain.GoalVO;
+import com.hmis.domain.PersonalInformationVO;
 import com.hmis.domain.UscarVO;
 import com.hmis.domain.UserMajorVO;
 import com.hmis.domain.UserVO;
@@ -25,6 +26,9 @@ import com.hmis.service.UserMajorService;
 import com.hmis.service.UserProgramService;
 import com.hmis.service.UserService;
 
+/**
+ * @author beomsoo
+ */
 @Controller
 @RequestMapping("/user/mypage/*")
 public class MyPageController {
@@ -46,11 +50,11 @@ public class MyPageController {
    
    private static Logger logger = LoggerFactory.getLogger(MyPageController.class);
 
-   // 1. 내정보확인 페이지
+   // 1) 내 정보 상세보기
    @RequestMapping(value = "/myInfo", method = RequestMethod.GET)
    public void myInfoGET(HttpServletRequest request, Model model) throws Exception {
 
-     // logger.info("user myPageGET..............");
+      logger.info("user myPageGET..............");
 
       HttpSession session = request.getSession();
 
@@ -60,26 +64,56 @@ public class MyPageController {
      
 
       model.addAttribute(service.myInfo(userNo));
+      
+      /** K-Digital 당시 추가 **/
+      // 1-1) myInfo.jsp 로 이동하면서 개인정보 동의여부 전달
+      model.addAttribute("piVO", service.personalInformationRead(userNo));
 
    }
 
-   // 2. 내정보 수정폼으로 이동
+	/**
+	* 맵핑 주소 : /myInfoUpdate
+	* 리턴 타입 : void
+	* 메소드명  : myInfoUpdateGET
+	* 매개 변수 : @RequestParam("userNo") int userNo, Model model
+	*/
+   // 2) 내 정보 수정 GET
    @RequestMapping(value = "/myInfoUpdate", method = RequestMethod.GET)
    public void myInfoUpdateGET(@RequestParam("userNo") int userNo, Model model) throws Exception {
-
-
-      model.addAttribute(service.myInfo(userNo));
+	   
+	   logger.info("User myInfo + personalInformation Update POST");
+	   
+	   // 2-1) myInfoUpdate.jsp 로 이동하면서 학생 상세 정보 전달
+	   model.addAttribute(service.myInfo(userNo));
+	   
+	   // 2-2) myInfoUpdate.jsp 로 이동하면서 개인정보 동의여부 전달
+	   model.addAttribute("piVO", service.personalInformationRead(userNo));
+	   
    }
 
-   // 3. 내정보 수정
+	/**
+	* 맵핑 주소 : /myInfoUpdate
+	* 리턴 타입 : String
+	* 메소드명  : myInfoUpdatePOST
+	* 매개 변수 : UserVO uVo, PersonalInformationVO piVO, RedirectAttributes rttr
+	*/
+   // 3) 내 정보 수정 POST
    @RequestMapping(value = "/myInfoUpdate", method = RequestMethod.POST)
-   public String myInfoUpdatePOST(UserVO uVo, RedirectAttributes rttr, Model model) throws Exception {
+   public String myInfoUpdatePOST(UserVO uVo, PersonalInformationVO piVO, RedirectAttributes rttr) throws Exception {
 
-
+	  logger.info("User myInfo + personalInformation Update POST");
+	   
+	  // 3-1) 수정된 내 정보를 DB에 저장
       service.myInfoModify(uVo);
-
+      
+      /** K-Digital 당시 추가 **/
+	  // 3-1) 수정된 개인정보 동의 여부를 DB에 저장
+      service.personalInformationModify(piVO);
+      
+      // 3-3) redirect로 강제 이동할 페이제에 rttr로 "user" 에 "SUCCESS" 담아서 전달
       rttr.addFlashAttribute("user", "SUCCESS");
-
+      
+      // 3-4) / 페이지로 강제 이동
       return "redirect:/";
    }
 

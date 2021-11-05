@@ -11,11 +11,15 @@ import com.hmis.domain.ApplyVO;
 import com.hmis.domain.Criteria;
 import com.hmis.domain.GoalVO;
 import com.hmis.domain.MisVO;
+import com.hmis.domain.PersonalInformationVO;
 import com.hmis.domain.SearchCriteria;
 import com.hmis.domain.UserVO;
 import com.hmis.dto.LoginDTO;
 import com.hmis.dto.TotalDTO;
 
+/**
+ * @author beomsoo
+ */
 @Repository
 public class UserDAOImpl implements UserDAO {
 
@@ -25,17 +29,34 @@ public class UserDAOImpl implements UserDAO {
    private static String namespace = "com.hmis.mapper.UserMapper";
    private static String namespaceMyPage = "com.hmis.mapper.MyPageMapper";
    private static String namespacePortfolio = "com.hmis.mapper.PortfolioMapper";
-
+   private static String namespacePI = "com.hmis.mapper.PersonalInformationMapper";
+         
    @Override
    public UserVO login(LoginDTO dto) throws Exception {
 
       return session.selectOne(namespace + ".login", dto);
+   }
+   
+   /** K-Digital 당시 추가 **/
+   // 학생 : 개인정보 동의여부 상세보기 
+   @Override
+   public PersonalInformationVO personalInformationRead(int userNo) throws Exception {
+   		return session.selectOne(namespacePI + ".read", userNo);
+   }
+   
+   /** K-Digital 당시 추가 **/
+   // 학생 : 개인정보 동의여부 수정 
+   @Override
+   public void personalInformationUpdate(PersonalInformationVO piVO) throws Exception {
+	   session.update(namespacePI + ".update", piVO);
    }
 
    @Override
    // 1. 사용자(학생) 등록
    // 2. 사용자(학생) 포트폴리오 등록
    public void insert(UserVO uVo) throws Exception {
+      // TODO Auto-generated method stub
+
       session.selectOne(namespace + ".insert", uVo);
       session.selectOne(namespacePortfolio + ".insert", uVo);
    }
@@ -189,6 +210,8 @@ public class UserDAOImpl implements UserDAO {
    public int checkUserNo(int userNo) throws Exception {
       return session.selectOne(namespace + ".checkUserNo", userNo);
    }
+
+
 
    // 13. 비밀번호 체크
    /*

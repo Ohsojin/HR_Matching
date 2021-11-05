@@ -10,12 +10,16 @@ import com.hmis.domain.ApplyVO;
 import com.hmis.domain.Criteria;
 import com.hmis.domain.GoalVO;
 import com.hmis.domain.MisVO;
+import com.hmis.domain.PersonalInformationVO;
 import com.hmis.domain.SearchCriteria;
 import com.hmis.domain.UserVO;
 import com.hmis.dto.LoginDTO;
 import com.hmis.dto.TotalDTO;
 import com.hmis.persistence.UserDAO;
 
+/**
+ * @author beomsoo
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -27,7 +31,21 @@ public class UserServiceImpl implements UserService {
 
       return dao.login(dto);
    }
-
+   
+   /** K-Digital 당시 추가 **/
+   // 학생 : 개인정보 동의여부 상세보기 
+   @Override
+   public PersonalInformationVO personalInformationRead(int userNo) throws Exception {
+   		return dao.personalInformationRead(userNo);
+   }
+   
+   /** K-Digital 당시 추가 **/
+   // 학생 : 개인정보 동의여부 수정 
+   @Override
+   public void personalInformationModify(PersonalInformationVO piVO) throws Exception {
+   		dao.personalInformationUpdate(piVO);
+   }
+   
    @Override
    // 1. 관리자 :: 기초정보관리 - 학생 등록
    public void register(UserVO uVo) throws Exception {
@@ -187,7 +205,7 @@ public class UserServiceImpl implements UserService {
    public int checkUserNo(int userNo) throws Exception {
       return dao.checkUserNo(userNo);
    }
-   
+
    // 비밀번호 체크
    /*@Override
    public boolean checkPw(int userNo, String userPw) throws Exception {

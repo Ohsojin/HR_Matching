@@ -6,14 +6,26 @@ import com.hmis.domain.ApplyVO;
 import com.hmis.domain.Criteria;
 import com.hmis.domain.GoalVO;
 import com.hmis.domain.MisVO;
+import com.hmis.domain.PersonalInformationVO;
 import com.hmis.domain.SearchCriteria;
 import com.hmis.domain.UserVO;
 import com.hmis.dto.LoginDTO;
 import com.hmis.dto.TotalDTO;
 
+/**
+ * @author beomsoo
+ */
 public interface UserService {
-
+	
    public UserVO login(LoginDTO dto) throws Exception;
+   
+   /** K-Digital 당시 추가 **/
+   // 학생 : 개인정보 동의여부 상세보기 
+   public PersonalInformationVO personalInformationRead(int userNo) throws Exception;
+   
+   /** K-Digital 당시 추가 **/
+   // 학생 : 개인정보 동의여부 수정 
+   public void personalInformationModify(PersonalInformationVO piVO) throws Exception;
 
    // 1. 관리자 :: 기초정보관리 - 학생 등록
    public void register(UserVO uVo) throws Exception;
