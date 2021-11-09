@@ -100,7 +100,7 @@ ul {
                                                         
                                                             <li class="list-inline-item mr-3">
                                                                 <h5 class="mb-1">임금</h5>
-                                                                <p class="mb-0 font-13 text-white-50">$</p>
+                                                                <p class="mb-0 font-13 text-white-50">${postingVO.salary}</p>
                                                             </li>
                                                         
                                                             <li class="list-inline-item">
