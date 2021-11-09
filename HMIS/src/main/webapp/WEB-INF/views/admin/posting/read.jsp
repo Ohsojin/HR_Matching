@@ -97,7 +97,7 @@ ul {
                                                         <p class="font-13 text-white-50"> ${postingVO.companySize}</p>
 
                                                         <ul class="mb-0 list-inline text-light">
-                                                        
+                                                         
                                                             <li class="list-inline-item mr-3">
                                                                 <h5 class="mb-1">임금</h5>
                                                                 <p class="mb-0 font-13 text-white-50">${postingVO.salary}</p>
