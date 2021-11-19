@@ -2,6 +2,8 @@
 package com.hmis.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hmis.domain.PageMaker;
 import com.hmis.domain.SearchCriteria;
+import com.hmis.domain.UserVO;
+import com.hmis.dto.RecommandDTO;
 import com.hmis.service.PostingService;
+import com.hmis.service.UserService;
 
 /**
  * @author beomsoo
@@ -25,6 +30,9 @@ import com.hmis.service.PostingService;
 public class UserPostingController {
 
 	private static Logger logger = LoggerFactory.getLogger(AdminAnnouncementController.class);
+	
+	@Inject
+	private UserService userService;
 	
 	// 채용공고
 	@Inject
@@ -81,6 +89,38 @@ public class UserPostingController {
 		// 2-4) 페이징 정보를 화면으로 전달
 		model.addAttribute("pageMaker", pageMaker);
 	}
+	
+	/**
+	* 맵핑 주소 : /recommandlist
+	* 리턴 타입 : void
+	* 메소드명  : recommandListGET
+	* 매개 변수 : @RequestParam("postingId") int postingId, Model model, @ModelAttribute("cri") SearchCriteria cri
+	*/
+	// 3) 학생 : 추전채용공고 상세보기
+	@RequestMapping(value = "/recommandlist", method = RequestMethod.GET)
+	public void recommandListGET(HttpServletRequest request, RecommandDTO recommandDTO, Model model, @ModelAttribute("cri") SearchCriteria cri) throws Exception {
+		
+		logger.info("User recommandList GET");
+		
+		// 3-0) 로그인시 session 에 저장되어 있는 userNo를 변수에 저장
+		HttpSession session = request.getSession();
+		UserVO uVo = (UserVO) session.getAttribute("login");
+		int userNo = uVo.getUserNo();
+		
+		// 3-1) recommandlist.jsp 로 이동하면서 학생 상세 정보를 같이 전달
+		model.addAttribute("userVO", userService.read(userNo));
+		
+		// 3-2) recommandlist.jsp 로 이동하면서 추천인재  정보를 같이 전달
+		model.addAttribute("recommandDTO", postingService.recommandPosting(recommandDTO));
+		
+		// 3-3) model로 페이징 정보를 전달
+		model.addAttribute("page", cri.getPage());
+		model.addAttribute("perPageNum", cri.getPerPageNum());
+		model.addAttribute("searchType", cri.getSearchType());
+		model.addAttribute("keyword", cri.getKeyword());
+
+	}
+
 	
 
 }

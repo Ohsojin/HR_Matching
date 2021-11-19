@@ -116,4 +116,22 @@
 		]]>
 	</select>
 
+	<!-- 채용직무 기업명 기업형태 연봉 추천점수 -->
+   <select id="recommandPosting" resultType="com.hmis.dto.RecommandDTO">
+		<![CDATA[
+	     SELECT 
+	         PT.JOB_NAME, PT.COMPANY_NAME, PT.COMPANY_SIZE, PT.SALARY, ROUND(DBMS_RANDOM.VALUE(85,97),2) RECOMMAND
+	      FROM 
+	         TBL_USER U, TBL_CARRIER C,  TBL_USCAR UC, TBL_PORTFOLIO PF, TBL_POSTING PT
+	      WHERE 
+	         U.USER_NO = UC.USER_NO 
+	            AND PF.USER_NO = U.USER_NO
+	         AND C.CAR_NO = UC.CAR_NO
+	            AND U.USER_NO = #{user_NO}
+	         AND PT.JOB_NAME LIKE '%' || C.CAR_NAME || '%'
+	            AND ROWNUM <= 5
+	      ORDER BY RECOMMAND DESC
+		]]>
+   </select>
+
 </mapper>
