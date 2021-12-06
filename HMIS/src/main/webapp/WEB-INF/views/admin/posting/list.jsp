@@ -40,12 +40,10 @@ body.loading {
 td, th {
 	text-align: center;
 }
-
-
 </style>
 <body class="loading">
-	
-	
+
+
 	<!-- Begin page -->
 	<div class="wrapper">
 
@@ -57,7 +55,7 @@ td, th {
 
 		<div class="content-page">
 			<div class="content">
-			<div id="vertical-topbar-placeholder"></div>
+				<div id="vertical-topbar-placeholder"></div>
 				<!-- Start Content-->
 				<div class="container-fluid">
 
@@ -75,17 +73,17 @@ td, th {
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="col-12">
 							<div class="card">
 
 								<div class="card-body">
-										<div class="row mb-2">
+									<div class="row mb-2">
 										<div class="col-lg-8">
-										
+
 											<form class="form-inline">
-											
+
 												<div class="form-group mx-sm-3 mb-2">
 													<select class="custom-select" id="status-select"
 														name="searchType">
@@ -99,18 +97,21 @@ td, th {
 															<c:out value="${cri.searchType eq 'cs'?'selected':''}"/>>기업형태</option>
 													</select>
 												</div>
-												
+
 												<div class="form-group mb-2">
 													<label for="inputPassword2" class="sr-only">Search</label>
-													<input type="text" name="keyword" class="form-control" value="${cri.keyword}" id="keywordInput" placeholder="키워드를 입력해주세요.">&nbsp;&nbsp;
-													<input type="button" class="form-control btn-primary" id="searchBtn" value="검색">
+													<input type="text" name="keyword" class="form-control"
+														value="${cri.keyword}" id="keywordInput"
+														placeholder="키워드를 입력해주세요.">&nbsp;&nbsp; <input
+														type="button" class="form-control btn-primary"
+														id="searchBtn" value="검색">
 												</div>
-												
+
 											</form>
 										</div>
 										<!-- end col-->
 									</div>
-									
+
 
 
 									<div class="table-responsive">
@@ -128,19 +129,25 @@ td, th {
 												<c:if test="${!empty list}">
 													<c:forEach items="${list}" var="list" varStatus="listStat">
 														<tr>
-														<c:if test="${pageMaker.cri.page == 1 }">
-															<td>${listStat.count}</td>
-														</c:if>
-														<c:if test="${pageMaker.cri.page != 1 }">
-															<td>${listStat.count + ((pageMaker.cri.page-1)*10) }</td>
-														</c:if>	
-															<td><a href='read${pageMaker.makeSearch(pageMaker.cri.page)}&postingId=${list.postingId}'> ${list.jobName}</a></td>
+															<c:if test="${pageMaker.cri.page == 1 }">
+																<td>${listStat.count}</td>
+															</c:if>
+															<c:if test="${pageMaker.cri.page != 1 }">
+																<td>${listStat.count + ((pageMaker.cri.page-1)*10) }</td>
+															</c:if>
+															<td><a
+																href='read${pageMaker.makeSearch(pageMaker.cri.page)}&postingId=${list.postingId}'>
+																	${list.jobName}</a></td>
 															<td>${list.companyName}</td>
 															<td>${list.companySize}</td>
 															<td>
-																<a class="action-icon" href="recommandlist${pageMaker.makeSearch(pageMaker.cri.page)}&postingId=${list.postingId}">
-																<i class="mdi mdi-human-child"></i>
-																</a>
+																<%-- <a class="action-icon" href="recommandlist${pageMaker.makeSearch(pageMaker.cri.page)}&postingId=${list.postingId}"> --%>
+																<a class="action-icon"
+																href="/hrMatching${pageMaker.makeSearch(pageMaker.cri.page)}&postingId=${list.postingId}">
+
+
+																	<i class="mdi mdi-human-child"></i>
+															</a>
 															</td>
 														</tr>
 													</c:forEach>
@@ -245,50 +252,49 @@ td, th {
 
 </body>
 
-	<script>
-		$(document).ready(function() {
-			$("#detached-check input:radio").click(function() {
+<script>
+	$(document).ready(function() {
+		$("#detached-check input:radio").click(function() {
 
-				alert("clicked");
-
-			});
-
-			$("input:radio:first").prop("checked", true).trigger("click");
+			alert("clicked");
 
 		});
-/*      // 오류 해결을 위한 주석처리
-		var msg = "${msg}";
 
-		if (msg != "") {
-			alert(msg);
-		}
- */
-		$(document).ready(
-				function() {
+		$("input:radio:first").prop("checked", true).trigger("click");
 
-					$('#searchBtn').on(
-							"click",
-							function(event) {
-								self.location = "list"
-										+ '${pageMaker.makeQuery(1)}'
-										+ "&searchType="
-										+ $("select option:selected").val()
-										+ "&keyword="
-										+ $('#keywordInput').val();
+	});
+	// 오류 해결을 위한 주석처리
+	var msg = "${msg}";
 
-							});
+	if (msg != "") {
+		alert(msg);
+	}
 
-				});
-	</script>
-	<script>
-      $(document).ready(function() {
-         $("#detached-check input:radio").click(function() {
+	$(document).ready(
+			function() {
 
-            alert("clicked");
-         });
+				$('#searchBtn').on(
+						"click",
+						function(event) {
+							self.location = "list"
+									+ '${pageMaker.makeQuery(1)}'
+									+ "&searchType="
+									+ $("select option:selected").val()
+									+ "&keyword=" + $('#keywordInput').val();
 
-         $("input:radio:first").prop("checked", true).trigger("click");
+						});
 
-      });
-   </script>
+			});
+</script>
+<script>
+	$(document).ready(function() {
+		$("#detached-check input:radio").click(function() {
+
+			alert("clicked");
+		});
+
+		$("input:radio:first").prop("checked", true).trigger("click");
+
+	});
+</script>
 </html>

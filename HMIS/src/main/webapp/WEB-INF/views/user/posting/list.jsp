@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title> HMIS :: 취업공고</title>
+<title>HMIS :: 취업공고</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta
 	content="A fully featured admin theme which can be used to build CRM, CMS, etc."
@@ -84,11 +84,11 @@ body[data-layout=detached] .wrapper {
 							<div class="card">
 
 								<div class="card-body">
-										<div class="row mb-2">
+									<div class="row mb-2">
 										<div class="col-lg-8">
-										
+
 											<form class="form-inline">
-											
+
 												<div class="form-group mx-sm-3 mb-2">
 													<select class="custom-select" id="status-select"
 														name="searchType">
@@ -104,14 +104,21 @@ body[data-layout=detached] .wrapper {
 												</div>
 												<div class="form-group mb-2">
 													<label for="inputPassword2" class="sr-only">Search</label>
-													<input type="text" name="keyword" class="form-control" value="${cri.keyword}" id="keywordInput" placeholder="키워드를 입력해주세요.">&nbsp;&nbsp;
-													<input type="button" class="form-control btn-primary" id="searchBtn" value="검색">
+													<input type="text" name="keyword" class="form-control"
+														value="${cri.keyword}" id="keywordInput"
+														placeholder="키워드를 입력해주세요.">&nbsp;&nbsp; <input
+														type="button" class="form-control btn-primary"
+														id="searchBtn" value="검색">
+														&nbsp;&nbsp;&nbsp;&nbsp;
+													<button type="button"
+														onclick="location.href='recommandlist'"
+														class="btn btn-primary">채용공고 추천받기</button>
 												</div>
 											</form>
 										</div>
 										<!-- end col-->
 									</div>
-									
+
 
 
 									<div class="table-responsive">
@@ -124,18 +131,20 @@ body[data-layout=detached] .wrapper {
 													<th>기업형태</th>
 												</tr>
 											</thead>
-											
+
 											<tbody>
 												<c:if test="${!empty list}">
 													<c:forEach items="${list}" var="list" varStatus="listStat">
 														<tr>
-														<c:if test="${pageMaker.cri.page == 1 }">
-															<td>${listStat.count}</td>
-														</c:if>
-														<c:if test="${pageMaker.cri.page != 1 }">
-															<td>${listStat.count + ((pageMaker.cri.page-1)*10) }</td>
-														</c:if>	
-															<td><a href='read${pageMaker.makeSearch(pageMaker.cri.page)}&postingId=${list.postingId}'> ${list.jobName}</a></td>
+															<c:if test="${pageMaker.cri.page == 1 }">
+																<td>${listStat.count}</td>
+															</c:if>
+															<c:if test="${pageMaker.cri.page != 1 }">
+																<td>${listStat.count + ((pageMaker.cri.page-1)*10) }</td>
+															</c:if>
+															<td><a
+																href='read${pageMaker.makeSearch(pageMaker.cri.page)}&postingId=${list.postingId}'>
+																	${list.jobName}</a></td>
 															<td>${list.companyName}</td>
 															<td>${list.companySize}</td>
 														</tr>
@@ -178,7 +187,7 @@ body[data-layout=detached] .wrapper {
 									</nav>
 								</div>
 							</div>
-								<!-- end card footer -->
+							<!-- end card footer -->
 						</div>
 						<!-- end col-12 -->
 					</div>
@@ -256,5 +265,19 @@ body[data-layout=detached] .wrapper {
 						});
 
 			});
+</script>
+<script>
+	$(document).ready(function() {
+
+		var formObj = $("form[role='form']");
+
+		console.log(formObj);
+
+		$(".btn btn-primary").on("click", function() {
+			formObj.attr("method", "get");
+			formObj.attr("action", "/user/posting/recommandlist");
+			formObj.submit();
+		});
+	});
 </script>
 </html>

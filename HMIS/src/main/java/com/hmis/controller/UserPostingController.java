@@ -29,7 +29,7 @@ import com.hmis.service.UserService;
 @RequestMapping("/user/posting/*")
 public class UserPostingController {
 
-	private static Logger logger = LoggerFactory.getLogger(AdminAnnouncementController.class);
+	private static Logger logger = LoggerFactory.getLogger(UserPostingController.class);
 	
 	@Inject
 	private UserService userService;

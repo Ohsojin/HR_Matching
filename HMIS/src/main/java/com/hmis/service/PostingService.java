@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.hmis.domain.PostingVO;
 import com.hmis.domain.SearchCriteria;
+import com.hmis.domain.UserVO;
 import com.hmis.dto.RecommandDTO;
 
 /**
@@ -34,5 +35,8 @@ public interface PostingService {
 	
 	// 8) 학생 : 채용공고 추천
 	public List<RecommandDTO> recommandPosting(RecommandDTO recommandDTO) throws Exception;
+	
+	// 인재 추천 결과 저장
+	public void registerRecommand(RecommandDTO recommandDTO) throws Exception;
 
 }

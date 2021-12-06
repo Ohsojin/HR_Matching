@@ -69,4 +69,10 @@ public class PostingServiceImpl implements PostingService{
 		return postingDAO.recommandPosting(recommandDTO);
 	}
 
+	@Override
+	public void registerRecommand(RecommandDTO recommandDTO) throws Exception {
+		postingDAO.registerRecommand(recommandDTO);
+		
+	}
+
 }

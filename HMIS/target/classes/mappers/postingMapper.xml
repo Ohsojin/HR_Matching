@@ -127,11 +127,19 @@
 	         U.USER_NO = UC.USER_NO 
 	            AND PF.USER_NO = U.USER_NO
 	         AND C.CAR_NO = UC.CAR_NO
-	            AND U.USER_NO = #{user_NO}
+	            AND U.USER_NO = #{userNo}
 	         AND PT.JOB_NAME LIKE '%' || C.CAR_NAME || '%'
 	            AND ROWNUM <= 5
 	      ORDER BY RECOMMAND DESC
 		]]>
    </select>
+   
+	<insert id="registerRecommand">
+		INSERT INTO TBL_USER_POSTING
+			(UP_NO, POSTING_ID, USER_NO, SLEDDING, RECOMMAND_SCORE, RECOMMAND_DATE)
+		VALUES
+			(SEQ_USER_POSTING.nextval, #{postingId}, #{userNo}, #{seldding}, #{recommand}, SYSDATE)
+	</insert>   
+   
 
 </mapper>

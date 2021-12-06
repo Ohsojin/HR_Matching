@@ -68,7 +68,12 @@ public class PostingDAOImpl implements PostingDAO{
 	// 8) 학생 : 채용공고 추천
 	@Override
 	public List<RecommandDTO> recommandPosting(RecommandDTO recommandDTO) {
-		return session.selectList(namespacePosting + ".recommand", recommandDTO);
+		return session.selectList(namespacePosting + ".recommandPosting", recommandDTO);
+	}
+
+	@Override
+	public void registerRecommand(RecommandDTO recommandDTO) throws Exception {
+		session.insert(namespacePosting + ".registerRecommand", recommandDTO);
 	}
 
 }
