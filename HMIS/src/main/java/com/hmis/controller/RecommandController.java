@@ -24,8 +24,8 @@ public class RecommandController {
 	@Inject
 	PostingService service;
 
-	//JSON 파싱할 수 있는 기본 형태 제공
-	//"와 {} 제거
+	// JSON 파싱할 수 있는 기본 형태 제공
+	// "와 {} 제거
 	public String remakeJSON(String result) {
 
 		String remake = "";
@@ -40,8 +40,7 @@ public class RecommandController {
 		return remake;
 	}
 
-
-	//get방식으로 URL 호출
+	// get방식으로 URL 호출
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String listPagePOST(RecommandDTO recommand, RedirectAttributes rttr) throws Exception {
 		logger.info("infoInput get .........");
@@ -52,8 +51,8 @@ public class RecommandController {
 
 		String Url = "http://127.0.0.1:5000/topNHrs?num=" + num + "&jobID=" + postingId;
 
-		//Url = "http://127.0.0.1:5000/topNHrs";
-		//Url = "http://127.0.0.1:5000/topNHrs?num=5&jobID=500";
+		// Url = "http://127.0.0.1:5000/topNHrs";
+		// Url = "http://127.0.0.1:5000/topNHrs?num=5&jobID=500";
 
 		// REST API호출 후 응답을 받을 때까지 기다리는 동기 방식
 		RestTemplate restTemplate = new RestTemplate();
@@ -84,19 +83,19 @@ public class RecommandController {
 					String[] recArr = arr.split(":");
 					RecommandDTO dto = new RecommandDTO();
 					dto.setPostingId(postingId);
-					dto.setSeldding(0); // 추천 0으로 설정
+					dto.setSledding(0); // 추천 0으로 설정
 
 					if (arr.contains("recHrSet")) {
 						/*
 						 * recHrSet: 20162398: 0.9985185282933657
 						 */
 						dto.setUserNo(Integer.parseInt(recArr[1].trim()));
-						dto.setRecommand(Float.parseFloat(recArr[2].trim()));
+						dto.setRecommandScore(Float.parseFloat(recArr[2].trim()));
 
 					} else {
 
 						dto.setUserNo(Integer.parseInt(recArr[0].trim()));
-						dto.setRecommand(Float.parseFloat(recArr[1].trim()));
+						dto.setRecommandScore(Float.parseFloat(recArr[1].trim()));
 
 					}
 
@@ -113,7 +112,7 @@ public class RecommandController {
 
 			// Read 페이지 이동
 			rttr.addAttribute("postingId", postingId);
-			
+
 			return "redirect:/admin/posting/read";
 
 		} else {
@@ -134,7 +133,7 @@ public class RecommandController {
 			return "redirect:/admin/posting/list";
 
 		}
-		
+
 	}
 
 }

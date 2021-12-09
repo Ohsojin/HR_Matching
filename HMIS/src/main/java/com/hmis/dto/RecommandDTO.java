@@ -8,13 +8,14 @@ public class RecommandDTO {
 	// 관리자 : 인재 추천
 	// UserVO
 	private int userNo;
-	private float recommand;
+	private String userName;
+	private float recommandScore;
 	// 학생 : 채용공고 추천
 	// PostingVO
 	private int postingId;
 
 	// 추천 후 결과 기본 0-추천, 1-면접, 2-채용
-	private int seldding;
+	private int sledding;
 
 	public int getUserNo() {
 		return userNo;
@@ -24,12 +25,20 @@ public class RecommandDTO {
 		this.userNo = userNo;
 	}
 
-	public float getRecommand() {
-		return recommand;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setRecommand(float recommand) {
-		this.recommand = recommand;
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public float getRecommandScore() {
+		return recommandScore;
+	}
+
+	public void setRecommandScore(float recommandScore) {
+		this.recommandScore = recommandScore;
 	}
 
 	public int getPostingId() {
@@ -40,18 +49,18 @@ public class RecommandDTO {
 		this.postingId = postingId;
 	}
 
-	public int getSeldding() {
-		return seldding;
+	public int getSledding() {
+		return sledding;
 	}
 
-	public void setSeldding(int seldding) {
-		this.seldding = seldding;
+	public void setSledding(int sledding) {
+		this.sledding = sledding;
 	}
 
 	@Override
 	public String toString() {
-		return "RecommandDTO [userNo=" + userNo + ", recommand=" + recommand + ", postingId=" + postingId
-				+ ", seldding=" + seldding + "]";
+		return "RecommandDTO [userNo=" + userNo + ", userName=" + userName + ", recommandScore=" + recommandScore
+				+ ", postingId=" + postingId + ", sledding=" + sledding + "]";
 	}
 
 }
